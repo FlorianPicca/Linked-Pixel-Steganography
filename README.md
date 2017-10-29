@@ -5,9 +5,11 @@ LPS doesn’t hide data sequentially in the image. It is inspired by linked list
 
 ![](/Images/LPS_schema.png?raw=true)
 
-Since LPS uses LSB, several pixels are needed to store the binary representation of the coordinate of the next pixel. That’s why LPS uses blocks of consecutive pixels. The block size is calculated from the image size in pixel, it’s the number of bits needed to store the highest value (height or width). Data is then split into chunks of the same size and padding is added at the end if needed. Block positions are randomly selected and checked to make sure no previsous data is overwritten.
+Since LPS uses LSB, several pixels are needed to store the binary representation of the coordinate of the next pixel. That’s why LPS uses blocks of consecutive pixels. 
 
 ![](/Images/decomposition.png?raw=true)
+
+The block size is calculated from the image size in pixel, it’s the number of bits needed to store the highest value (height or width). Data is then split into chunks of the same size and padding is added at the end if needed. Block positions are randomly selected and checked to make sure no previsous data is overwritten.
 
 To recover data correctly, one needs to know the coordinates of the starting pixel and calculate the block size. From then, every next pixel can be recovered by reading blocks, until the coordinates of the next pixel are (0, 0). Like in linked lists, the last element has a NULL pointer, which in this case is represented with coordinate values of 0.
 ## Test 1 – LPS on regular PNG image
