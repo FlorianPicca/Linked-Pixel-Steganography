@@ -16,6 +16,7 @@ To recover data correctly, one needs to know the coordinates of the starting pix
 Pour rappel, l'écriture inclusive consiste à inclure le féminin, entrecoupé de points, dans les noms, comme dans «mes ami·e·s» ou «les candidat·e·s à la présidentielle, pour le rendre «visible» et prôner des règles grammaticales plus neutres. L'expression est le fruit d'une réflexion amorcée il y a une vingtaine d'années, autour de l'idée de neutralité dans l'écriture. Longtemps cantonnée aux mouvements féministes, cette graphie s'impose désormais dans le débat public. Le logiciel Word, lui, ne propose pas l'utilisation du point milieu. Il remplacera, par exemple, le terme «les experts» par «les experts et les expertes»
 
 Original Image on the left and image hiding data on the right:
+
 ![](Images/test%201%20Alpha/original.png?raw=true) ![](Images/test%201%20Alpha/out.png?raw=true)
 
 Like with LSB steganography, there is no visual difference.
@@ -28,6 +29,7 @@ We can clearly see stripes in homogenous areas, revealing the presence of hidden
 The message is the same as in test 1.
 
 Original Image on the left and image hiding data on the right:
+
 ![](Images/Test%202/original.jpg?raw=true) ![](Images/Test%202/out.jpg?raw=true)
 
 No visual difference like in the previous test.
