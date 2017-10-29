@@ -30,8 +30,14 @@ The message is the same as in test 1.
 
 Original Image on the left and image hiding data on the right:
 
-![](Images/Test%202/original.jpg?raw=true) ![](Images/Test%202/out.jpg?raw=true)
+<img src="Images/Test%202/original.jpg?raw=true" width="400"> <img src="Images/Test%202/out.jpg?raw=true" width="400">
 
 No visual difference like in the previous test.
 ### LSB analysis
-![](Images/Test%202/original_lsb.jpg?raw=true) ![](Images/Test%202/out_lsb.jpg?raw=true)
+<img src="Images/Test%202/original_lsb.jpg?raw=true" width="400"> <img src="Images/Test%202/out_lsb.jpg?raw=true" width="400">
+
+Just like we saw in figure 4, if the image is noisy, the LSB analysis won’t show clear visual difference. But with a good eye and by zooming, one can distinguish stripes due to LPS:
+
+<img src="Images/Test%202/zoomed_out_lsb.jpg?raw=true" width="400">
+
+The stripes are more visible in less noisy areas.
