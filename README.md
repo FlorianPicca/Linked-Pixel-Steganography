@@ -62,4 +62,17 @@ Althought there is a lot more hidden data then in test 2, LSB analysis doesn't s
 A little more than 16% of the pixels are hiding data. It's still not very impressive but by doing this test the limitations of LPS started to become an handicap.
 
 ## Limitations
-**to-do**
+Block positions are chosen randomly. As more data is written in the image there is more chance of a collision happening. At the moment, the only way I found to cope with collisions is to keep track of previously used pixels in a list. If the newly chosen pixel isn't valid, an other one is chosen. This step is repeated until a valid pixel is found. The result is a large increase of the execution time as data grows.
+
+Randomly choosing a location doesn't optimise space managment. It may lead to gaps between blocks that are too small to fit a new block and thus wasting a lot of storage capacity over all the image.
+
+Scince LPS uses only 1 channel to store the actual data, it takes at least three times more storage space than classical LSB.
+
+LPS as it is implemented right now is good for hiding data that, once hidden, doesn't exceed 25 % of the original image. Otherwise, the execution time becomes unresonably long.
+
+## Roadmap
+- [ ] Making the script callable with arguments.
+- [ ] Improving the execution time on larger data:
+  - [ ] Improving the random block location choice minimise collisions.
+  - [ ] Improving space managment to gain storage.
+- [ ] Adding support for multiple LSB usage.
