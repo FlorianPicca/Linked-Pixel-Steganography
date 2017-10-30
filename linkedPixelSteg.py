@@ -171,6 +171,7 @@ def hide(data, imgName, outName, startingPixel=(0,0)):
     img.close()
     return startingPixel
 
+message = "Example data that can be hidden."
 # Usage examples
 print hide(message, "original.png", "out.png")
 # print hide(message, "original.png", "out.png", (123, 98))
