@@ -73,6 +73,6 @@ LPS as it is implemented right now is good for hiding data that, once hidden, do
 ## Roadmap
 - [ ] Making the script callable with arguments.
 - [ ] Improving the execution time on larger data:
-  - [ ] Improving the random block location choice minimise collisions.
+  - [ ] Improving the random block location choice to minimise collisions.
   - [ ] Improving space managment to gain storage.
 - [ ] Adding support for multiple LSB usage.
