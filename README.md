@@ -32,32 +32,32 @@ The message is the same as in test 1.
 
 Original Image on the left and image hiding data on the right:
 
-<img src="Images/Test%202/original.jpg?raw=true" width="400"> <img src="Images/Test%202/out.jpg?raw=true" width="400">
+<img src="Images/Test%202/original.png?raw=true" width="400"> <img src="Images/Test%202/out.png?raw=true" width="400">
 
 No visual difference like in the previous test.
 ### LSB analysis
-<img src="Images/Test%202/original_lsb.jpg?raw=true" width="400"> <img src="Images/Test%202/out_lsb.jpg?raw=true" width="400">
+<img src="Images/Test%202/original_lsb.png?raw=true" width="400"> <img src="Images/Test%202/out_lsb.png?raw=true" width="400">
 
 Just like we saw in figure 4, if the image is noisy, the LSB analysis won’t show clear visual difference. But with a good eye and by zooming, one can distinguish stripes due to LPS:
 
-<img src="Images/Test%202/zoomed_out_lsb.jpg?raw=true" width="400">
+<img src="Images/Test%202/zoomed_out_lsb.png?raw=true" width="400">
 
 The stripes are more visible in less noisy areas.
 ## Test 3 - Image hiding in noisy JPEG image
 Let's see if steganalysis becomes simplier when there is more data hidden. For this test, the same JPEG image as in test 2 was used to hide this smaller JPEG image:
 
-![](Images/Test%203%20-%20image/image.jpg?raw=true)
+![](Images/Test%203%20-%20image/image.png?raw=true)
 
 Original Image on the left and image hiding data on the right:
 
-<img src="Images/Test%203%20-%20image/original.jpg?raw=true" width="400"> <img src="Images/Test%203%20-%20image/out.jpg?raw=true" width="400">
+<img src="Images/Test%203%20-%20image/original.png?raw=true" width="400"> <img src="Images/Test%203%20-%20image/out.png?raw=true" width="400">
 
 ### LSB analysis
-<img src="Images/Test%203%20-%20image/original_lsb.jpg?raw=true" width="400"> <img src="Images/Test%203%20-%20image/out_lsb.jpg?raw=true" width="400">
+<img src="Images/Test%203%20-%20image/original_lsb.png?raw=true" width="400"> <img src="Images/Test%203%20-%20image/out_lsb.png?raw=true" width="400">
 
 Althought there is a lot more hidden data then in test 2, LSB analysis doesn't show a clear visual difference. One would have to zoom in once again to see the stripes. To have a feeling of how much data is hiding inside this image, here is the LSB analysis of the same test realized on a pure black image:
 
-<img src="Images/Test%203%20-%20image/black_original_lsb.jpg?raw=true" width="400"> <img src="Images/Test%203%20-%20image/black_out_lsb.jpg?raw=true" width="400">
+<img src="Images/Test%203%20-%20image/black_original_lsb.png?raw=true" width="400"> <img src="Images/Test%203%20-%20image/black_out_lsb.png?raw=true" width="400">
 
 A little more than 16% of the pixels are hiding data. It's still not very impressive but by doing this test the limitations of LPS started to become an handicap.
 
