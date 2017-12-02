@@ -5,7 +5,7 @@ LPS doesn’t hide data sequentially in the image. It is inspired by linked list
 
 ![](/Images/LPS_schema.png?raw=true)
 
-Since LPS uses LSB, several pixels are needed to store the binary representation of the coordinate of the next pixel. That’s why LPS uses blocks of consecutive pixels. 
+Since LPS uses LSB, several pixels are needed to store the binary representation of the coordinate of the next pixel. That’s why LPS uses blocks of consecutive pixels.
 
 ![](/Images/decomposition.png?raw=true)
 
@@ -70,8 +70,12 @@ Scince LPS uses only 1 channel to store the actual data, it takes at least three
 
 LPS as it is implemented right now is good for hiding data that, once hidden, doesn't exceed 25 % of the original image. Otherwise, the execution time becomes unresonably long.
 
+## Dependency
+
+`sudo pip install pillow`
+
 ## Roadmap
-- [ ] Making the script callable with arguments.
+- [x] Making the script callable with arguments.
 - [ ] Improving the execution time on larger data:
   - [ ] Improving the random block location choice to minimise collisions.
   - [ ] Improving space managment to gain storage.

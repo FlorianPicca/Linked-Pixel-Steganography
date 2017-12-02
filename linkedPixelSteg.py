@@ -1,6 +1,7 @@
 #encoding: UTF-8
 from PIL import Image
 from random import randint
+from optparse import OptionParser
 
 def pixelNumberToCoordinate(n, img):
     """
@@ -171,7 +172,27 @@ def hide(data, imgName, outName, startingPixel=(0,0)):
     img.close()
     return startingPixel
 
-message = "Example data that can be hidden."
-# Usage examples
-print hide(message, "original.png", "out.png")
-# print hide(message, "original.png", "out.png", (123, 98))
+def get_options():
+    parser = OptionParser()
+    # required
+    parser.add_option("-f", "--inputfile", type="string", help="Input file in witch data should be hidden.")
+    parser.add_option("-d", "--data", type="string", help="Data (represented as string) to hide.")
+    # Optionals
+    parser.add_option("-o", "--outputfile", type="string", default="out.png", help="Name of the output file containing the hidden data.")
+    parser.add_option("-x", type=float, help="Starting pixel's x coordinate.")
+    parser.add_option("-y", type=float, help="Starting pixel's y coordinate.")
+    (options, args) = parser.parse_args()
+
+    if len(args) != 0 or not options.inputfile or not options.data:
+        parser.print_help()
+        raise SystemExit
+
+    return options
+
+if __name__ == '__main__':
+    options = get_options()
+
+    if options.x and options.y:
+        print hide(options.data, options.inputfile, options.outputfile, (options.x, options.y))
+    else:
+        print hide(options.data, options.inputfile, options.outputfile)
