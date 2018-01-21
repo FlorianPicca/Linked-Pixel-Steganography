@@ -17,7 +17,7 @@ def coordinateToPixelNumber(x, y, img):
     Ex: Image size is w=10, h=20
     pixel (3, 2) is the 23th pixel.
     """
-    return y*img.size[0]+x
+    return int(y*img.size[0]+x)
 
 def setLSB(v, state):
     if state == "0":
