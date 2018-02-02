@@ -9,7 +9,7 @@ Since LPS uses LSB, several pixels are needed to store the binary representation
 
 ![](/Images/decomposition.png?raw=true)
 
-The block size is calculated from the image size in pixel, it’s the number of bits needed to store the highest value (height or width). Data is then split into chunks of the same size and padding is added at the end if needed. Block positions are randomly selected and checked to make sure no previsous data is overwritten.
+The block size is calculated from the image size in pixel, it’s the number of bits needed to store the highest value (height or width). Data is then split into chunks of the same size and padding is added at the end if needed. Block positions are randomly selected and checked to make sure no previous data is overwritten.
 
 To recover data correctly, one needs to know the coordinates of the starting pixel and calculate the block size. From then, every next pixel can be recovered by reading blocks, until the coordinates of the next pixel are (0, 0). Like in linked lists, the last element has a NULL pointer, which in this case is represented with coordinate values of 0.
 ## Test 1 – LPS on regular PNG image with Alpha channel
@@ -44,7 +44,7 @@ Just like we saw in figure 4, if the image is noisy, the LSB analysis won’t sh
 
 The stripes are more visible in less noisy areas.
 ## Test 3 - Image hiding in noisy PNG image
-Let's see if steganalysis becomes simplier when there is more data hidden. For this test, the same PNG image as in test 2 was used to hide this smaller PNG image:
+Let's see if steganalysis becomes simpler when there is more data hidden. For this test, the same PNG image as in test 2 was used to hide this smaller PNG image:
 
 ![](Images/Test%203%20-%20image/image.png?raw=true)
 
@@ -55,20 +55,20 @@ Original Image on the left and image hiding data on the right:
 ### LSB analysis
 <img src="Images/Test%203%20-%20image/original_lsb.png?raw=true" width="400"> <img src="Images/Test%203%20-%20image/out_lsb.png?raw=true" width="400">
 
-Althought there is a lot more hidden data then in test 2, LSB analysis doesn't show a clear visual difference. One would have to zoom in once again to see the stripes. To have a feeling of how much data is hiding inside this image, here is the LSB analysis of the same test realized on a pure black image:
+Although there is a lot more hidden data then in test 2, LSB analysis doesn't show a clear visual difference. One would have to zoom in once again to see the stripes. To have a feeling of how much data is hiding inside this image, here is the LSB analysis of the same test realized on a pure black image:
 
 <img src="Images/Test%203%20-%20image/black_original_lsb.png?raw=true" width="400"> <img src="Images/Test%203%20-%20image/black_out_lsb.png?raw=true" width="400">
 
-A little more than 16% of the pixels are hiding data. It's still not very impressive but by doing this test the limitations of LPS started to become an handicap.
+A little more than 16% of the pixels are hiding data. It's still not very impressive but by doing this test the limitations of LPS started to become a handicap.
 
 ## Limitations
 Block positions are chosen randomly. As more data is written in the image there is more chance of a collision happening. At the moment, the only way I found to cope with collisions is to keep track of previously used pixels in a list. If the newly chosen pixel isn't valid, an other one is chosen. This step is repeated until a valid pixel is found. The result is a large increase of the execution time as data grows.
 
-Randomly choosing a location doesn't optimise space managment. It may lead to gaps between blocks that are too small to fit a new block and thus wasting a lot of storage capacity over all the image.
+Randomly choosing a location doesn't optimise space management. It may lead to gaps between blocks that are too small to fit a new block and thus wasting a lot of storage capacity over all the image.
 
-Scince LPS uses only 1 channel to store the actual data, it takes at least three times more storage space than classical LSB.
+Because LPS uses only 1 channel to store the actual data, it takes at least three times more storage space than classical LSB.
 
-LPS as it is implemented right now is good for hiding data that, once hidden, doesn't exceed 25 % of the original image. Otherwise, the execution time becomes unresonably long.
+LPS as it is implemented right now is good for hiding data that, once hidden, doesn't exceed 25 % of the original image. Otherwise, the execution time becomes unreasonably long.
 
 ## Dependency
 
@@ -78,5 +78,5 @@ LPS as it is implemented right now is good for hiding data that, once hidden, do
 - [x] Making the script callable with arguments.
 - [ ] Improving the execution time on larger data:
   - [ ] Improving the random block location choice to minimise collisions.
-  - [ ] Improving space managment to gain storage.
+  - [ ] Improving space management to gain storage.
 - [ ] Adding support for multiple LSB usage.
