@@ -19,11 +19,11 @@ Pour rappel, l'écriture inclusive consiste à inclure le féminin, entrecoupé 
 
 Original Image on the left and image hiding data on the right:
 
-![](Images/test%201%20Alpha/original.png?raw=true) ![](Images/test%201%20Alpha/out.png?raw=true)
+<img src="Images/test%201%20Alpha/original.png?raw=true" width="400"> <img src="Images/test%201%20Alpha/out.png?raw=true" width="400">
 
 Like with LSB steganography, there is no visual difference.
 ### LSB analysis
-![](Images/test%201%20Alpha/original_lsb.png?raw=true) ![](Images/test%201%20Alpha/out_lsb.png?raw=true)
+<img src="Images/test%201%20Alpha/original_lsb.png?raw=true" width="400"> <img src="Images/test%201%20Alpha/out_lsb.png?raw=true" width="400">
 
 We can clearly see stripes in homogenous areas, revealing the presence of hidden data. But in the center of the image it is very difficult to tell if something is hiding in the LSB. Unlike the classical LSB steganography technique, the randomness of the location where data is hidden makes steganalysis more difficult if the image is chosen correctly.
 ## Test 2 – LPS on noisy PNG image
