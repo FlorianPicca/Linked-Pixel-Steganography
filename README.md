@@ -9,7 +9,7 @@ Since LPS uses LSB, several pixels are needed to store the binary representation
 
 ![](/Images/decomposition.png?raw=true)
 
-The block size is calculated from the image size in pixel, it’s the number of bits needed to store the highest value (height or width). Data is then split into chunks of the same size and padding is added at the end if needed. Block positions are randomly selected and checked to make sure no previous data is overwritten.
+The block size is calculated from the image size in pixel, it’s the number of bits needed to store the highest value (height or width). Data is then split into chunks of the same size and padding is added at the end if needed. Block positions are randomly selected.
 
 To recover data correctly, one needs to know the coordinates of the starting pixel and calculate the block size. From then, every next pixel can be recovered by reading blocks, until the coordinates of the next pixel are (0, 0). Like in linked lists, the last element has a NULL pointer, which in this case is represented with coordinate values of 0.
 ## Test 1 – LPS on regular PNG image with Alpha channel
@@ -59,16 +59,10 @@ Although there is a lot more hidden data then in test 2, LSB analysis doesn't sh
 
 <img src="Images/Test%203%20-%20image/black_original_lsb.png?raw=true" width="400"> <img src="Images/Test%203%20-%20image/black_out_lsb.png?raw=true" width="400">
 
-A little more than 16% of the pixels are hiding data. It's still not very impressive but by doing this test the limitations of LPS started to become a handicap.
+A little more than 16% of the pixels are hiding data.
 
 ## Limitations
-Block positions are chosen randomly. As more data is written in the image there is more chance of a collision happening. At the moment, the only way I found to cope with collisions is to keep track of previously used pixels in a list. If the newly chosen pixel isn't valid, an other one is chosen. This step is repeated until a valid pixel is found. The result is a large increase of the execution time as data grows.
-
-Randomly choosing a location doesn't optimise space management. It may lead to gaps between blocks that are too small to fit a new block and thus wasting a lot of storage capacity over all the image.
-
 Because LPS uses only 1 channel to store the actual data, it takes at least three times more storage space than classical LSB.
-
-LPS as it is implemented right now is good for hiding data that, once hidden, doesn't exceed 25 % of the original image. Otherwise, the execution time becomes unreasonably long.
 
 ## Dependency
 
@@ -76,7 +70,7 @@ LPS as it is implemented right now is good for hiding data that, once hidden, do
 
 ## Roadmap
 - [x] Making the script callable with arguments.
-- [ ] Improving the execution time on larger data:
-  - [ ] Improving the random block location choice to minimise collisions.
-  - [ ] Improving space management to gain storage.
+- [x] Improving the execution time on larger data:
+  - [x] Improving the random block location choice to minimise collisions.
+  - [x] Improving space management to gain storage.
 - [ ] Adding support for multiple LSB usage.

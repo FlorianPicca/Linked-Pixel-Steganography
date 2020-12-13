@@ -1,6 +1,7 @@
+#!/usr/bin/env python3
 #encoding: UTF-8
 from PIL import Image
-from random import randint
+from random import choice
 from optparse import OptionParser
 
 def pixelNumberToCoordinate(n, img):
@@ -25,7 +26,7 @@ def setLSB(v, state):
     elif state == "1":
         return v | 0b00000001
     else:
-        print "invalide state: %s" % (state)
+        print(f"invalide state: {state}")
         return v
 
 def write(data, pixel, nextP, img):
@@ -69,7 +70,7 @@ def write(data, pixel, nextP, img):
             setLSB(p[2], lin[i-pixel]))
 
 def toBin(string):
-    return ''.join(format(ord(x), 'b').zfill(8) for x in string)
+    return ''.join(format(x, 'b').zfill(8) for x in string)
 
 def chunkstring(string, length):
     return [string[0+i:length+i].ljust(length, "0") for i in range(0, len(string), length)]
@@ -106,28 +107,6 @@ def canWrite(nextP, img, occupied, l):
         i += 1
     return not occ
 
-def chooseNextP(img, occupied, l):
-    """
-    Chooses the next pixel randomly while making sure it won't overwrite previously written data.
-
-    @param img: Image Object.
-    @type img: Image
-
-    @param occupied: List of pixels representing the start of a previously written block.
-    @type occupied: List
-
-    @param l: The length of a block.
-    @type l: Int
-
-    @returns: The new pixel number.
-    @rtype: Int
-    """
-    total = img.size[0]*img.size[1]
-    r = randint(1, total)
-    while not canWrite(r, img, occupied, l):
-        r = randint(1, total)
-    return r
-
 def hide(data, imgName, outName, startingPixel=(0,0)):
     """
     Hides the string data in the image imgName and creates a new image containing the data outName.
@@ -150,20 +129,28 @@ def hide(data, imgName, outName, startingPixel=(0,0)):
     """
     img = Image.open(imgName)
     BLOCKLEN = len(bin(max(img.size))[2:])
-    OCCUPIED = []
+    # The number of pixels in the image
+    total = img.size[0] * img.size[1]
+    # list of available block positions
+    AVAILABLE = [x for x in range(1, total-1, BLOCKLEN)]
+    # Check if the last position is big enough
+    if AVAILABLE[-1] + BLOCKLEN >= total:
+        AVAILABLE.pop()
 
     d = chunkstring(toBin(data),BLOCKLEN)
     n = len(d)
     # choose the first pixel
     pixel = coordinateToPixelNumber(startingPixel[0], startingPixel[1], img)
-    if startingPixel == (0,0):
-        pixel = chooseNextP(img, OCCUPIED, BLOCKLEN)
+    if pixel == 0:
+        # Choose a random location because (0, 0) is not authorized
+        pixel = choice(AVAILABLE)
+        AVAILABLE.remove(pixel)
         startingPixel = pixelNumberToCoordinate(pixel, img)
     for i in range(n-1):
         # pointer to the next pixel
-        nextP = chooseNextP(img, OCCUPIED, BLOCKLEN)
+        nextP = choice(AVAILABLE)
+        AVAILABLE.remove(nextP)
         write(d[i], pixel, nextP, img)
-        OCCUPIED.append(pixel)
         # switch to next pixel
         pixel = nextP
     # last pointer towards NULL (0, 0)
@@ -177,15 +164,29 @@ def get_options():
     # required
     parser.add_option("-f", "--inputfile", type="string", help="Input file in witch data should be hidden.")
     parser.add_option("-d", "--data", type="string", help="Data (represented as string) to hide.")
+    parser.add_option("-s", "--secretfile", type="string", help="Secret file to hide.")
     # Optionals
     parser.add_option("-o", "--outputfile", type="string", default="out.png", help="Name of the output file containing the hidden data.")
     parser.add_option("-x", type=float, help="Starting pixel's x coordinate.")
     parser.add_option("-y", type=float, help="Starting pixel's y coordinate.")
     (options, args) = parser.parse_args()
 
-    if len(args) != 0 or not options.inputfile or not options.data:
+    if len(args) != 0 or not options.inputfile or (not options.data and not options.secretfile):
         parser.print_help()
         raise SystemExit
+
+    if options.secretfile and options.data:
+        print("Only one of --secretfile (-s) or --data (-d) should be provided.")
+        parser.print_help()
+        raise SystemExit
+
+    if options.secretfile:
+        with open(options.secretfile, "rb") as f:
+            options.data = f.read()
+
+    # force bytes
+    if type(options.data) == str:
+        options.data = options.data.encode()
 
     return options
 
@@ -193,6 +194,6 @@ if __name__ == '__main__':
     options = get_options()
 
     if options.x and options.y:
-        print hide(options.data, options.inputfile, options.outputfile, (options.x, options.y))
+        print(hide(options.data, options.inputfile, options.outputfile, (options.x, options.y)))
     else:
-        print hide(options.data, options.inputfile, options.outputfile)
+        print(hide(options.data, options.inputfile, options.outputfile))
