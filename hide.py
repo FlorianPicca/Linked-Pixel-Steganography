@@ -75,38 +75,6 @@ def toBin(string):
 def chunkstring(string, length):
     return [string[0+i:length+i].ljust(length, "0") for i in range(0, len(string), length)]
 
-def canWrite(nextP, img, occupied, l):
-    """
-    Checks if we can use this pixel to write data without overwriting previously written data.
-
-    @param nextP: Pixel number to check.
-    @type nextP: Int
-
-    @param img: Image Object.
-    @type img: Image
-
-    @param occupied: List of pixels representing the start of a previously written block.
-    @type occupied: List
-
-    @param l: The length of a block.
-    @type l: Int
-
-    @returns: True if ok.
-    @rtype: Boolean
-    """
-    total = img.size[0]*img.size[1]
-    if nextP + l > total:
-        return False
-    i = 0
-    occ = False
-    while not occ and i < len(occupied):
-        actuel = (nextP, nextP+l)
-        present = (occupied[i], occupied[i]+l)
-        # check if no elements in common
-        occ = not (max(actuel) < min(present) or max(present) < min(actuel))
-        i += 1
-    return not occ
-
 def hide(data, imgName, outName, startingPixel=(0,0)):
     """
     Hides the string data in the image imgName and creates a new image containing the data outName.
